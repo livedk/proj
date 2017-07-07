@@ -1,19 +1,20 @@
-Example Django project using Celery
-
-Contents
-
-proj/
-
-This is the project iself, created using django-admin.py startproject proj, and then the settings module (proj/settings.py) was modified to add app1 to INSTALLED_APPS
+Django中使用Celery
 
 proj/celery.py
 
-This module contains the Celery application instance for this project, we take configuration from Django settings and use autodiscover_tasks to find task modules inside all packages listed in INSTALLED_APPS.
+This module contains the Celery application instance for this project,
+we take configuration from Django settings and use autodiscover_tasks to find task modules
+inside all packages listed in INSTALLED_APPS.
 
-app1/
+app1/tasks.py
 
-Example generic app. This is decoupled from the rest of the project by using the @shared_task decorator. This decorator returns a proxy that always points to the currently active Celery instance.
+异步任务定义
 
-Starting the worker(if virtualenv change to special env)
 
+启动worker
+参考http://docs.celeryproject.org/en/latest/userguide/workers.html
 $ celery -A proj worker -l info
+
+启动定时
+参考http://docs.celeryproject.org/en/latest/userguide/periodic-tasks.html
+$ celery -A proj beat -l info
